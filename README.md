@@ -1,5 +1,5 @@
 # Chair
-Chair is a python both that makes requests to the blackhat training page and when the page 200's it notifies the target phone number via sms and phone call.
+Chair is a python both that makes requests to the blackhat training page and when the page 200's it notifies the target phone number via sms and phone call. The image will send an initial test message and perform a test call when you set it up. If it doesn't do this something is probably wrong.
 
 ## Image Build Process
 1. Navigate to the root of this repository
