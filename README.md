@@ -6,6 +6,9 @@ Chair is a python both that makes requests to the blackhat training page and whe
 2. Run ```docker build . -t awe-notification-bot```
 3. Push the image to the repository of whatever cloud provider you're using
 
+## Google Logging Authentication
+If you choose to run this on GCP, which is the default loging setup at the moment. Ensure you generate your authentication key for Google here (https://console.cloud.google.com/iam-admin/serviceaccounts), and put the json file in the root, calling it ```auth.json```.
+
 ## Runtime Environment
 This tool requires four environment variables to be set in order to execute. These variables provide the tool with enough context to reach out to your specific Twilio account as well as the information it needs to send messages and makes calls to the right phone number.
 

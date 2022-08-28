@@ -1,14 +1,20 @@
 #!/usr/bin/python3
 
 # library imports
-import os, sys, time, requests, logging
+import os, sys, time, requests, logging, google.cloud.logging
 from twilio.rest import Client
 
 # logging configuration
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="auth.json"
+
+google_log_client = google.cloud.logging.Client()
+google_log_client.setup_logging()
+
 logging.basicConfig(stream=sys.stdout,
     level=logging.DEBUG,
     format='%(asctime)s %(levelname)-8s %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S')
+
 
 # globals 
 DELAY = 60 # in seconds
@@ -20,6 +26,7 @@ to_phone_number = os.environ['TWILIO_TO_PHONE_NUMBER']
 
 # twilio client establishment
 client = Client(account_sid, auth_token)
+
 
 
 # twilio action wrappers
@@ -57,7 +64,7 @@ logging.info(f"executing a phone call to user, status code '{make_phone_call(awe
 # run the test case until it hits
 while True:
     registration_status_code = requests.get("https://www.blackhat.com/us-23/training/schedule/").status_code
-    logging.debug(f"website tested, returned status code: {registration_status_code}")
+    logging.info(f"website tested, returned status code: {registration_status_code}")
 
     # check if course registration is live
     if registration_status_code == 200:
