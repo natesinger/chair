@@ -30,12 +30,18 @@ I wrote this bot to take a shot at a Blackhat AWE seat for the 2023 offering. Re
 ## Required Environment
 Retrieve these secrets from the twillio environment (Environment Settings)
 
-| Environment Variable     | Description                         | Required | Default |
-| ------------------------ | ----------------------------------- | -------- | ------- |
-| TWILIO_ACCOUNT_SID       | The account identifier of the owner | Yes      | None    |
-| TWILIO_AUTH_TOKEN        | Authentication token from twilio    | Yes      | None    |
-| TWILIO_FROM_PHONE_NUMBER | Sender's phone number               | Yes      | None    |
-| TWILIO_TO_PHONE_NUMBER   | Target recipient's phone number     | Yes      | None    |
+| Environment Variable | Description                         | Required | Default |
+| -------------------- | ----------------------------------- | -------- | ------- |
+| LOG_LOCAL            | Log to local STDOUT                 | No       | False   |
+| INTERVAL_SEC         | Period of time to wait for re-run   | No       | 60      |
+| ACCOUNT_SID          | The account identifier of the owner | Yes      | None    |
+| AUTH_TOKEN           | Authentication token from twilio    | Yes      | None    |
+| SENDER_PHONE         | Sender's phone number               | Yes      | None    |
+| RECEIVER_PHONE       | Target recipient's phone number     | Yes      | None    |
+| URL_REG              | URL of registration phone message   | Yes      | None    |
+| URL_TEST             | URL of test phone message           | Yes      | None    |
+| URL_WARNING          | URL of warning phone message        | Yes      | None    |
+
 
 # Twilio Context
 Recommend setting up twilio with recurring billing in case it runs out
