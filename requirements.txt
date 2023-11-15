@@ -1,3 +1,4 @@
-google-cloud-logging==3.2.5
-twilio==7.15.3
-requests==2.25.1
+requests
+twilio
+boto3
+watchtower

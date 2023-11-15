@@ -6,27 +6,32 @@ import requests
 import logging
 
 # third party imports
-import google.cloud.logging
 from twilio.rest import Client
+import boto3
+import watchtower
+
+# local imports
+pass
 
 
 # environment setup 
-LOG_LOCAL      = os.environ.get("LOG_LOCAL", False) 
-INTERVAL_SEC   = os.environ.get("INTERVAL_SEC", 60)
-ACCOUNT_SID    = os.environ.get("ACCOUNT_SID")
-AUTH_TOKEN     = os.environ.get("AUTH_TOKEN")
-SENDER_PHONE   = os.environ.get("SENDER_PHONE")
-RECEIVER_PHONE = os.environ.get("RECEIVER_PHONE")
-URL_REG        = os.environ.get("URL_REG")
-URL_TEST       = os.environ.get("URL_TEST")
-URL_WARNING    = os.environ.get("URL_WARNING")
+LOG_LOCAL       = os.environ.get("LOG_LOCAL", False) 
+INTERVAL_SEC    = os.environ.get("INTERVAL_SEC", 60)
+ACCOUNT_SID     = os.environ.get("ACCOUNT_SID")
+AUTH_TOKEN      = os.environ.get("AUTH_TOKEN")
+SENDER_PHONE    = os.environ.get("SENDER_PHONE")
+RECEIVER_PHONE  = os.environ.get("RECEIVER_PHONE")
+URL_REG         = os.environ.get("URL_REG")
+URL_TEST        = os.environ.get("URL_TEST")
+URL_WARNING     = os.environ.get("URL_WARNING")
+
 
 awe_reg_message = "Black hat Advanced Windows \
 Exploitation \registration is online. Visit \
-https://www.blackhat.com/us-23/training/schedule to register now!"
+https://www.blackhat.com/us-24/training/schedule to register now!"
 
 awe_test_message = "This is a test message to \
-validate that twilio is successfully configured. \
+validate that Twilio is successfully configured. \
 You will receive a message from the bot when course \
 registration becomes available."
 
@@ -44,8 +49,20 @@ if LOG_LOCAL:
         level=logging.DEBUG,
         format='%(asctime)s %(levelname)-8s %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S')
+else:
+    # Configure AWS CloudWatch Logs
+    log_group_name = os.environ.get("LOG_GROUP_NAME")  # Specify your log group name here
 
-else: google.cloud.logging.Client().setup_logging()
+    # Create a logging handler that sends logs to CloudWatch
+    cw_handler = watchtower.CloudWatchLogHandler(
+        log_group=log_group_name,
+        boto3_session=boto3.Session()
+    )
+
+    # Configure the root logger to use the CloudWatch handler
+    logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger()
+    logger.addHandler(cw_handler)
 
 
 # twilio client establishment
@@ -78,7 +95,7 @@ sequential_fail_count = 0
 
 # run the test case until it hits
 while True:
-    registration_status_code = requests.get("https://www.blackhat.com/us-23/training/schedule/").status_code
+    registration_status_code = requests.get("https://www.blackhat.com/us-24/training/schedule/").status_code
     logging.info(f"website tested, returned status code: {registration_status_code}")
 
     # check if course registration is live
