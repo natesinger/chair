@@ -4,43 +4,39 @@ Chair is a python both that makes requests to the blackhat training page and whe
 # Contributors
 ## Nate Singer
 #### nathaniel\<at\>singer\<dot\>cloud
-I wrote this bot to take a shot at a Blackhat AWE seat for the 2023 offering. Results to be determined but you are welcome to take advantage of this tool or fork/pull additional features as you'd like.
+I wrote this bot to take a shot at a Blackhat AWE seat for the --2023--2024 offering. Results to be determined but you are welcome to take advantage of this tool or fork/pull additional features as you'd like.
 
 # Artifact Build & Execution
-## GAR Authentication and Build Process
-1. Authenticate to docker<br>
-```gcloud auth login```
-
-2. Configure auth for docker (config file)<br>
-```gcloud auth configure-docker us-central1-docker.pkg.dev```
-
-3. Verify authentication by pulling your secret<br>
-```echo "https://us-central1-docker.pkg.dev" | docker-credential-gcr get```
 
 ## Image Assembly & Push
-1. Build the image locally<br>
-```docker build . -t chair```
+1. Retrieve an authentication token and authenticate your Docker client to your registry. Use the AWS CLI:<br>
+```aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 012672079470.dkr.ecr.us-west-1.amazonaws.com```
 
-2. Tag the local image<br>
-```docker tag chair us-central1-docker.pkg.dev/<project>/<repository>/chair:<version>```
+2. Build your Docker image using the following command. For information on building a Docker file from scratch see the instructions here . You can skip this step if your image is already built:<br>
+```docker build -t chair .```
 
-3. Push it to the artifacts repository<br>
-```docker push chair us-central1-docker.pkg.dev/<project>/<repository>/chair:<version>```
+3. After the build completes, tag your image so you can push the image to this repository:<br>
+```docker tag chair:latest 012672079470.dkr.ecr.us-west-1.amazonaws.com/chair:latest```
+
+4. Run the following command to push this image to your newly created AWS repository:<br>
+```docker push 012672079470.dkr.ecr.us-west-1.amazonaws.com/chair:latest```
+
 
 ## Required Environment
 Retrieve these secrets from the twillio environment (Environment Settings)
 
-| Environment Variable | Description                         | Required | Default |
-| -------------------- | ----------------------------------- | -------- | ------- |
-| LOG_LOCAL            | Log to local STDOUT                 | No       | False   |
-| INTERVAL_SEC         | Period of time to wait for re-run   | No       | 60      |
-| ACCOUNT_SID          | The account identifier of the owner | Yes      | None    |
-| AUTH_TOKEN           | Authentication token from twilio    | Yes      | None    |
-| SENDER_PHONE         | Sender's phone number               | Yes      | None    |
-| RECEIVER_PHONE       | Target recipient's phone number     | Yes      | None    |
-| URL_REG              | URL of registration phone message   | Yes      | None    |
-| URL_TEST             | URL of test phone message           | Yes      | None    |
-| URL_WARNING          | URL of warning phone message        | Yes      | None    |
+| Environment Variable | Description                         | Required              | Default |
+| -------------------- | ----------------------------------- | --------------------- | ------- |
+| LOG_LOCAL            | Log to local STDOUT                 | No                    | False   |
+| INTERVAL_SEC         | Period of time to wait for re-run   | No                    | 60      |
+| ACCOUNT_SID          | The account identifier of the owner | Yes                   | None    |
+| AUTH_TOKEN           | Authentication token from twilio    | Yes                   | None    |
+| SENDER_PHONE         | Sender's phone number               | Yes                   | None    |
+| RECEIVER_PHONE       | Target recipient's phone number     | Yes                   | None    |
+| URL_REG              | URL of registration phone message   | Yes                   | None    |
+| URL_TEST             | URL of test phone message           | Yes                   | None    |
+| URL_WARNING          | URL of warning phone message        | Yes                   | None    |
+| LOG_GROUP_NAME       | Specify your log group name here    | If LOG_LOCAL Disabled | None    |
 
 
 # Twilio Context
