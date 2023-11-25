@@ -1,0 +1,10 @@
+watchtower-3.0.1.dist-info/INSTALLER,sha256=zuuue4knoyJ-UwPPXg8fezS7VCrXJQrAP7zeNuwvFQg,4
+watchtower-3.0.1.dist-info/LICENSE,sha256=xllut76FgcGL5zbIRvuRc7aezPbvlMUTWJPsVr2Sugg,11358
+watchtower-3.0.1.dist-info/METADATA,sha256=Jq8UFWCf7pSbZqqSjdbdq4bV1mhcaTAwZS4OtXpQudU,15700
+watchtower-3.0.1.dist-info/RECORD,,
+watchtower-3.0.1.dist-info/REQUESTED,sha256=47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU,0
+watchtower-3.0.1.dist-info/WHEEL,sha256=2wepM1nk4DS4eFpYrW1TTqPcoGNfHhhO_i5m4cOimbo,92
+watchtower-3.0.1.dist-info/top_level.txt,sha256=ROZf3W_NpE7HR4nax2ICqHfCIxw6D3nzG-7x_68nYwk,11
+watchtower/__init__.py,sha256=x8PlxQM5DR2qcBNZ07PZehuuHvdT4GyzAMs5eZsu3BM,23196
+watchtower/__pycache__/__init__.cpython-310.pyc,,
+watchtower/py.typed,sha256=47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU,0
