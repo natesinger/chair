@@ -123,4 +123,4 @@ while True:
 
 
     # wait to re-test status
-    time.sleep(INTERVAL_SEC)
+    time.sleep(int(INTERVAL_SEC))
